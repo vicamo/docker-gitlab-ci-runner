@@ -39,7 +39,7 @@ start-stop-daemon --start \
 
 # Further setups, e.g. runner registration.
 if [ -d "${GITLAB_CI_RUNNERS_DIR}" ]; then
-  run-parts ${GITLAB_CI_RUNNERS_ARGS+--arg=\"${GITLAB_CI_RUNNERS_ARGS}\"} -- ${GITLAB_CI_RUNNERS_DIR}
+  eval run-parts ${GITLAB_CI_RUNNERS_ARGS:+--arg=\"${GITLAB_CI_RUNNERS_ARGS}\"} -- ${GITLAB_CI_RUNNERS_DIR}
 fi
 
 while [ true ]; do
