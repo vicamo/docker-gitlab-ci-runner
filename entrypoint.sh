@@ -34,7 +34,8 @@ start-stop-daemon --start \
   --exec ${GITLAB_CI_RUNNER_PATH} \
   --name ${GITLAB_CI_RUNNER_NAME} \
   --pidfile /var/run/${GITLAB_CI_RUNNER_NAME}.pid --make-pidfile \
-  -- ${args} &>> /var/log/${GITLAB_CI_RUNNER_NAME}.log
+  --no-close --background \
+  -- ${args} >> /var/log/${GITLAB_CI_RUNNER_NAME}.log
 
 # Further setups, e.g. runner registration.
 if [ -d "${GITLAB_CI_RUNNERS_DIR}" ]; then
