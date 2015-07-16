@@ -28,7 +28,7 @@ RUN apt-get update \
 # Install gitlab-ci-multi-runner manually.
 #
 # See https://github.com/ayufan/gitlab-ci-multi-runner/blob/master/packaging/scripts/postinst.deb
-RUN wget -O ${GITLAB_CI_RUNNER_PATH} ${GITLAB_CI_RUNNER_URL} \
+RUN wget -q -O ${GITLAB_CI_RUNNER_PATH} ${GITLAB_CI_RUNNER_URL} \
 	&& chmod +x ${GITLAB_CI_RUNNER_PATH} \
 	&& useradd --comment 'GitLab CI Runner' \
 		--home ${GITLAB_CI_HOME} --create-home \
