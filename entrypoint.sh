@@ -7,9 +7,9 @@ if [ -S /var/run/docker.sock ]; then
   groupmod --gid $(ls -n /var/run/docker.sock | awk '{print $4}') docker
 fi
 
-# Ensure a valid data directory.
-mkdir -p ${GITLAB_CI_DATA_DIR}
-chown ${GITLAB_CI_USER}:${GITLAB_CI_USER} ${GITLAB_CI_DATA_DIR}
+# Ensure a valid home directory.
+mkdir -p ${GITLAB_CI_HOME}
+chown ${GITLAB_CI_USER}:${GITLAB_CI_USER} ${GITLAB_CI_HOME}
 
 # Ensure config permission.
 touch ${GITLAB_CI_CONFIG}
@@ -23,14 +23,14 @@ args="run"
 if [ $# != 0 ]; then
   args="${args} $@";
 else
-  args="${args} --working-directory ${GITLAB_CI_DATA_DIR}"
+  args="${args} --working-directory ${GITLAB_CI_HOME}"
   args="${args} --config ${GITLAB_CI_CONFIG}"
 fi
 
 # Start Gitlab CI Multi Runner service
 start-stop-daemon --start \
   --chuid ${GITLAB_CI_USER} \
-  --chdir ${GITLAB_CI_DATA_DIR} \
+  --chdir ${GITLAB_CI_HOME} \
   --exec ${GITLAB_CI_RUNNER_PATH} \
   --name ${GITLAB_CI_RUNNER_NAME} \
   --pidfile /var/run/${GITLAB_CI_RUNNER_NAME}.pid --make-pidfile \
