@@ -2,13 +2,18 @@ FROM buildpack-deps:sid-scm
 
 MAINTAINER You-Sheng Yang <vicamo@gmail.com>
 
+# Mutable variables:
+#
+#   GITLAB_CI_RUNNERS_ARGS
+#   GITLAB_CI_RUNNER_PATH
+#   GITLAB_CI_CONFIG
 ENV GITLAB_CI_USER=gitlab-ci \
 	GITLAB_CI_RUNNER_URL=https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/master/binaries/gitlab-ci-multi-runner-linux-amd64 \
 	GITLAB_CI_RUNNER_NAME=gitlab-ci-multi-runner \
 	GITLAB_CI_RUNNERS_DIR=/etc/gitlab-ci/runners.d \
 	GITLAB_CI_RUNNERS_ARGS=
 ENV GITLAB_CI_RUNNER_PATH=/usr/bin/${GITLAB_CI_RUNNER_NAME} \
-	GITLAB_CI_HOME=/home/${GITLAB_CI_USER}
+	GITLAB_CI_HOME=/var/lib/${GITLAB_CI_USER}
 ENV GITLAB_CI_CONFIG=${GITLAB_CI_HOME}/config.toml
 
 RUN apt-get update \
